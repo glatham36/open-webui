@@ -20,7 +20,7 @@
 	let autoTags = true;
 
 	let responseAutoCopy = false;
-	let widescreenMode = false;
+	let widescreenMode = true;
 	let splitLargeChunks = false;
 	let scrollOnBranchChange = true;
 	let userLocation = false;
@@ -47,7 +47,7 @@
 	let ctrlEnterToSend = false;
 	let copyFormatted = false;
 
-	let collapseCodeBlocks = false;
+	let collapseCodeBlocks = true;
 	let expandDetails = false;
 
 	let imageCompression = false;
@@ -305,12 +305,12 @@
 		largeTextAsFile = $settings.largeTextAsFile ?? false;
 		copyFormatted = $settings.copyFormatted ?? false;
 
-		collapseCodeBlocks = $settings.collapseCodeBlocks ?? false;
+		collapseCodeBlocks = $settings.collapseCodeBlocks ?? true;
 		expandDetails = $settings.expandDetails ?? false;
 
 		landingPageMode = $settings.landingPageMode ?? '';
 		chatBubble = $settings.chatBubble ?? true;
-		widescreenMode = $settings.widescreenMode ?? false;
+		widescreenMode = $settings.widescreenMode ?? true;
 		splitLargeChunks = $settings.splitLargeChunks ?? false;
 		scrollOnBranchChange = $settings.scrollOnBranchChange ?? true;
 		chatDirection = $settings.chatDirection ?? 'auto';
