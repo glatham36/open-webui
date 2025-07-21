@@ -7,24 +7,23 @@
 		<link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
 		<link rel="shortcut icon" href="/static/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
-		<meta name="apple-mobile-web-app-title" content="Open WebUI" />
+		<meta name="apple-mobile-web-app-title" content="Aunsight Intelligence" />
 
-		<link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+		<link rel="manifest" href="/manifest.json" />
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
 		/>
 		<meta name="theme-color" content="#171717" />
 		<meta name="robots" content="noindex,nofollow" />
-		<meta name="description" content="Open WebUI" />
+		<meta name="description" content="Aunsight Intelligence" />
 		<link
 			rel="search"
 			type="application/opensearchdescription+xml"
-			title="Open WebUI"
+			title="Aunsight Intelligence"
 			href="/opensearch.xml"
 		/>
 		<script src="/static/loader.js" defer></script>
-		<link rel="stylesheet" href="/static/custom.css" />
 
 		<script>
 			function resizeIframe(obj) {
@@ -77,22 +76,32 @@
 						}
 					}
 				});
-				const isDarkMode = document.documentElement.classList.contains('dark');
 
-				const logo = document.createElement('img');
-				logo.id = 'logo';
-				logo.style =
-					'position: absolute; width: auto; height: 6rem; top: 44%; left: 50%; transform: translateX(-50%); display:block;';
-				logo.src = isDarkMode ? '/static/splash-dark.png' : '/static/splash.png';
+				function setSplashImage() {
+					const logo = document.getElementById('logo');
+					const isDarkMode = document.documentElement.classList.contains('dark');
 
-				document.addEventListener('DOMContentLoaded', function () {
-					const splash = document.getElementById('splash-screen');
-					if (splash) splash.prepend(logo);
-				});
+					if (isDarkMode) {
+						const darkImage = new Image();
+						darkImage.src = '/static/splash-dark.png';
+
+						darkImage.onload = () => {
+							logo.src = '/static/splash-dark.png';
+							logo.style.filter = ''; // Ensure no inversion is applied if splash-dark.png exists
+						};
+
+						darkImage.onerror = () => {
+							logo.style.filter = 'invert(1)'; // Invert image if splash-dark.png is missing
+						};
+					}
+				}
+
+				// Runs after classes are assigned
+				window.onload = setSplashImage;
 			})();
 		</script>
 
-		<title>Open WebUI</title>
+		<title>Aunsight Intelligence</title>
 
 		%sveltekit.head%
 	</head>
@@ -109,6 +118,19 @@
 					overflow-y: scroll !important;
 				}
 			</style>
+
+			<img
+				id="logo"
+				style="
+					position: absolute;
+					width: auto;
+					height: 6rem;
+					top: 44%;
+					left: 50%;
+					transform: translateX(-50%);
+				"
+				src="/static/splash.png"
+			/>
 
 			<div
 				style="
